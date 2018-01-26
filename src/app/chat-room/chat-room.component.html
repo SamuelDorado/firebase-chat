@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let message of messages|async">
+    <b>{{message.user}}</b>: {{message.text}}
+  </li>
+</ul>
+<label for="message">Type something</label>
+<input type="text" name="message" [(ngModel)]="text"/>
+<button (click)="send()">Send Message</button>
