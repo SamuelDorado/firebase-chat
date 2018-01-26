@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -9,18 +9,16 @@ import { AngularFireAuth } from 'angularfire2/auth';
   styleUrls: ['./chat-room.component.css']
 })
 export class ChatRoomComponent implements OnInit {
-  private messagesCollection: AngularFirestoreCollection<any>;
   user:string='';
-  messages: Observable<any[]>;
+  messages: FirebaseListObservable<any[]>;
   text: string='';
-  constructor(private afs: AngularFirestore,private afAuth: AngularFireAuth) {
-    this.messagesCollection = afs.collection<any>('messages');
-    this.messages = this.messagesCollection.valueChanges();
+  constructor(private af: AngularFireDatabase,private afAuth: AngularFireAuth) {
+    this.messages = af.list('/messages');
   }
   send() {
-    const id = this.afs.createId();
-    const message: any = { id, user: this.user, text: this.text };
-    this.messagesCollection.add(message);
+    const message: any = {user: this.user, text: this.text };
+    this.messages.push(message);
+    this.text  = '';
   }
 
   ngOnInit() {

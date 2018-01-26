@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
@@ -9,7 +10,6 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
 import {FormsModule}from '@angular/forms';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore
       storageBucket: "ges-chat.appspot.com",
       messagingSenderId: "697883101772"
     }),
-    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
   providers: [],
